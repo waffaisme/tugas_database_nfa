@@ -1,0 +1,41 @@
+-- 8. Buat table produk
+CREATE TABLE produk (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    kode VARCHAR(10) UNIQUE,
+    nama VARCHAR(45) NOT NULL,
+    harga DOUBLE NOT NULL,
+    stok INT NOT NULL,
+    jenis_produk_id INT NOT NULL,
+    FOREIGN KEY (jenis_produk_id) REFERENCES jenis_produk(id)
+);
+
+-- 9. Buat table pesanan_items
+CREATE TABLE pesanan_items (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pesanan_id INT NOT NULL,
+    produk_id INT NOT NULL,
+    jumlah INT NOT NULL,
+    harga_satuan DOUBLE NOT NULL,
+    subtotal DOUBLE NOT NULL,
+    FOREIGN KEY (pesanan_id) REFERENCES pesanan(id),
+    FOREIGN KEY (produk_id) REFERENCES produk(id)
+);
+
+-- 10. Buat table vendor
+CREATE TABLE vendor (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    kode VARCHAR(10) UNIQUE,
+    nama VARCHAR(45) NOT NULL,
+    kontak VARCHAR(45),
+    alamat TEXT
+);
+
+-- 11. Buat table pembelian
+CREATE TABLE pembelian (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no_invoice VARCHAR(15) UNIQUE,
+    tanggal DATE NOT NULL,
+    total DOUBLE NOT NULL,
+    vendor_id INT NOT NULL,
+    FOREIGN KEY (vendor_id) REFERENCES vendor(id)
+);
